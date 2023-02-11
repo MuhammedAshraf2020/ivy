@@ -520,7 +520,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">dev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">_dev_str</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">as_ivy_dev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_pre_repr</span> <span class="o">=</span> <span class="s2">&quot;ivy.&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_pre_repr</span> <span class="o">=</span> <span class="s2">&quot;ivy.array&quot;</span>
     <span class="k">if</span> <span class="s2">&quot;gpu&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dev_str</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_post_repr</span> <span class="o">=</span> <span class="s2">&quot;, dev=</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dev_str</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -682,9 +682,10 @@
     <span class="n">arr_np</span> <span class="o">=</span> <span class="n">backend</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
     <span class="n">rep</span> <span class="o">=</span> <span class="n">ivy</span><span class="o">.</span><span class="n">vec_sig_fig</span><span class="p">(</span><span class="n">arr_np</span><span class="p">,</span> <span class="n">sig_fig</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_size</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">arr_np</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="n">dec_vals</span><span class="p">):</span>
+        <span class="nb">repr</span> <span class="o">=</span> <span class="n">rep</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;, dtype&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;, dev&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_pre_repr</span>
-            <span class="o">+</span> <span class="n">rep</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;, dtype&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;, dev&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="o">+</span> <span class="nb">repr</span><span class="p">[</span><span class="nb">repr</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span> <span class="p">:]</span>
             <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_post_repr</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ivy</span><span class="o">.</span><span class="n">current_backend_str</span><span class="p">())</span>
         <span class="p">)</span>
 
@@ -6033,7 +6034,7 @@
 
 <div class="viewcode-block" id="vsplit"><a class="viewcode-back" href="../../../functional/ivy/experimental/vsplit/vsplit_array.html#ivy.array.array_methods.vsplit">[docs]</a><span class="k">def</span> <span class="nf">vsplit</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
-    <span class="n">indices_or_sections</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+    <span class="n">indices_or_sections</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
     <span class="o">/</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -6046,18 +6047,15 @@
 <span class="sd">    self</span>
 <span class="sd">        Input array.</span>
 <span class="sd">    indices_or_sections</span>
-<span class="sd">        If indices_or_sections is an integer n, the array is split into n sections.</span>
-<span class="sd">        If the array is divisible by n along the 3rd axis, each section will be of</span>
-<span class="sd">        equal size. If input is not divisible by n, the sizes of the first</span>
-<span class="sd">        int(ary.size(0) % n) sections will have size int(ary.size(0) / n) + 1, and</span>
-<span class="sd">        the rest will have size int(ary.size(0) / n).</span>
+<span class="sd">        If indices_or_sections is an integer n, the array is split into n</span>
+<span class="sd">        equal sections, provided that n must be a divisor of the split axis.</span>
 <span class="sd">        If indices_or_sections is a tuple of ints, then input is split at each of</span>
 <span class="sd">        the indices in the tuple.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    ret</span>
-<span class="sd">        input array split along the 3rd axis.</span>
+<span class="sd">        input array split vertically.</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -6088,11 +6086,8 @@
 <span class="sd">    self</span>
 <span class="sd">        Input array.</span>
 <span class="sd">    indices_or_sections</span>
-<span class="sd">        If indices_or_sections is an integer n, the array is split into n sections.</span>
-<span class="sd">        If the array is divisible by n along the 3rd axis, each section will be of</span>
-<span class="sd">        equal size. If input is not divisible by n, the sizes of the first</span>
-<span class="sd">        int(ary.size(0) % n) sections will have size int(ary.size(0) / n) + 1, and</span>
-<span class="sd">        the rest will have size int(ary.size(0) / n).</span>
+<span class="sd">        If indices_or_sections is an integer n, the array is split into n</span>
+<span class="sd">        equal sections, provided that n must be a divisor of the split axis.</span>
 <span class="sd">        If indices_or_sections is a tuple of ints, then input is split at each of</span>
 <span class="sd">        the indices in the tuple.</span>
 
@@ -6738,7 +6733,7 @@
 <span class="sd">    self</span>
 <span class="sd">        input array.</span>
 <span class="sd">    out</span>
-<span class="sd">    optional output array, for writing the result to.</span>
+<span class="sd">        optional output array, for writing the result to.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -6747,7 +6742,7 @@
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    &gt;&gt;&gt; a = ivy.randint(10, size=(2,3))</span>
+<span class="sd">    &gt;&gt;&gt; a = ivy.asarray([[8, 9, 6],[6, 2, 6]])</span>
 <span class="sd">    &gt;&gt;&gt; a.msort()</span>
 <span class="sd">    ivy.array(</span>
 <span class="sd">        [[6, 2, 6],</span>
@@ -6755,6 +6750,44 @@
 <span class="sd">        )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">msort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="lexsort"><a class="viewcode-back" href="../../../functional/ivy/experimental/lexsort/lexsort_array.html#ivy.array.array_methods.lexsort">[docs]</a><span class="k">def</span> <span class="nf">lexsort</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ivy.Array instance method variant of ivy.lexsort. This method simply wraps the</span>
+<span class="sd">    function, and so the docstring for ivy.lexsort also applies to this method</span>
+<span class="sd">    with minimal changes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    self</span>
+<span class="sd">        input array.</span>
+<span class="sd">    axis</span>
+<span class="sd">        axis of each key to be indirectly sorted.</span>
+<span class="sd">        By default, sort over the last axis of each key.</span>
+<span class="sd">    out</span>
+<span class="sd">        optional output array, for writing the result to.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        array of integer indices with shape N, that sort the input array as keys.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; a = [1,5,1,4,3,4,4] # First column</span>
+<span class="sd">    &gt;&gt;&gt; b = [9,4,0,4,0,2,1] # Second column</span>
+<span class="sd">    &gt;&gt;&gt; keys = ivy.asarray([b,a])</span>
+<span class="sd">    &gt;&gt;&gt; keys.lexsort() # Sort by a, then by b</span>
+<span class="sd">    array([2, 0, 4, 6, 5, 3, 1])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">lexsort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="eye_like"><a class="viewcode-back" href="../../../functional/ivy/experimental/eye_like/eye_like_array.html#ivy.array.array_methods.eye_like">[docs]</a><span class="k">def</span> <span class="nf">eye_like</span><span class="p">(</span>
@@ -11464,8 +11497,13 @@
 <span class="sd">    ivy.array(11.)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">transpose_a</span><span class="o">=</span><span class="n">transpose_a</span><span class="p">,</span> <span class="n">transpose_b</span><span class="o">=</span><span class="n">transpose_b</span><span class="p">,</span>
-        <span class="n">adjoint_a</span><span class="o">=</span><span class="n">adjoint_a</span><span class="p">,</span> <span class="n">adjoint_b</span><span class="o">=</span><span class="n">adjoint_b</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
+        <span class="n">x2</span><span class="p">,</span>
+        <span class="n">transpose_a</span><span class="o">=</span><span class="n">transpose_a</span><span class="p">,</span>
+        <span class="n">transpose_b</span><span class="o">=</span><span class="n">transpose_b</span><span class="p">,</span>
+        <span class="n">adjoint_a</span><span class="o">=</span><span class="n">adjoint_a</span><span class="p">,</span>
+        <span class="n">adjoint_b</span><span class="o">=</span><span class="n">adjoint_b</span><span class="p">,</span>
+        <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
     <span class="p">)</span></div>
 
 
