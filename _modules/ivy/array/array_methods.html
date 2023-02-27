@@ -7072,7 +7072,6 @@
     <span class="n">shape</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Shape</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeShape</span><span class="p">],</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
-    <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Device</span><span class="p">,</span> <span class="n">ivy</span><span class="o">.</span><span class="n">NativeDevice</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -7083,7 +7082,7 @@
 <span class="sd">    device</span>
 <span class="sd">    out</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="max_pool1d"><a class="viewcode-back" href="../../../functional/ivy/experimental/max_pool1d/max_pool1d_array.html#ivy.array.array_methods.max_pool1d">[docs]</a><span class="k">def</span> <span class="nf">max_pool1d</span><span class="p">(</span>
@@ -8141,6 +8140,53 @@
         <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span>
         <span class="n">keepdims</span><span class="o">=</span><span class="n">keepdims</span><span class="p">,</span>
         <span class="n">overwrite_input</span><span class="o">=</span><span class="n">overwrite_input</span><span class="p">,</span>
+        <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bincount"><a class="viewcode-back" href="../../../functional/ivy/experimental/bincount/bincount_array.html#ivy.array.array_methods.bincount">[docs]</a><span class="k">def</span> <span class="nf">bincount</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">minlength</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ivy.Array instance method variant of ivy.bincount. This method simply</span>
+<span class="sd">    wraps the function, and so the docstring for ivy.bincount also applies to</span>
+<span class="sd">    this method with minimal changes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    self</span>
+<span class="sd">        Input array. The array is flattened if it is not already 1-dimensional.</span>
+<span class="sd">    weights</span>
+<span class="sd">        Optional weights, array of the same shape as self.</span>
+<span class="sd">    minlength</span>
+<span class="sd">        A minimum number of bins for the output array.</span>
+<span class="sd">    out</span>
+<span class="sd">        An array of the same shape as the returned array, or of the shape</span>
+<span class="sd">        (minlength,) if minlength is specified.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        The result of binning the input array.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; a = ivy.array([0, 1, 1, 3, 2, 1, 7])</span>
+<span class="sd">    &gt;&gt;&gt; a.bincount()</span>
+<span class="sd">        ivy.array([1, 3, 1, 1, 0, 0, 0, 1])</span>
+<span class="sd">    &gt;&gt;&gt; a.bincount(minlength=10)</span>
+<span class="sd">        ivy.array([1, 3, 1, 1, 0, 0, 0, 1, 0, 0])</span>
+<span class="sd">    &gt;&gt;&gt; a.bincount(weights=ivy.array([0.3, 0.5, 0.2, 0.7, 1., 0.6, 1.]))</span>
+<span class="sd">        ivy.array([0.3, 1.3, 1. , 0.7, 0. , 0. , 0. , 1. ])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">,</span>
+        <span class="n">minlength</span><span class="o">=</span><span class="n">minlength</span><span class="p">,</span>
         <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span>
     <span class="p">)</span></div>
 
@@ -9652,6 +9698,44 @@
 <span class="sd">    ivy.array([4-3j, 6-2j, 1+6j])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ldexp"><a class="viewcode-back" href="../../../functional/ivy/experimental/ldexp/ldexp_array.html#ivy.array.array_methods.ldexp">[docs]</a><span class="k">def</span> <span class="nf">ldexp</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">x2</span><span class="p">:</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">out</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ivy</span><span class="o">.</span><span class="n">Container</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ivy</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ivy.Array instance method variant of ivy.ldexp. This method simply wraps</span>
+<span class="sd">    the function, and so the docstring for ivy.ldexp also applies to this</span>
+<span class="sd">    method with minimal changes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    self</span>
+<span class="sd">        Input array.</span>
+<span class="sd">    x2</span>
+<span class="sd">        The array of exponents.</span>
+<span class="sd">    out</span>
+<span class="sd">        Alternate output array in which to place the result.</span>
+<span class="sd">        The default is None.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ret</span>
+<span class="sd">        The next representable values of x1 in the direction of x2.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; x = ivy.array([1.0, 2.0, 3.0])</span>
+<span class="sd">    &gt;&gt;&gt; y = ivy.array([3.0, 2.0, 1.0])</span>
+<span class="sd">    &gt;&gt;&gt; x.ldexp(y)</span>
+<span class="sd">    ivy.array([8.0, 8.0, 6.0])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ivy</span><span class="o">.</span><span class="n">ldexp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="isin"><a class="viewcode-back" href="../../../functional/ivy/experimental/isin/isin_array.html#ivy.array.array_methods.isin">[docs]</a><span class="k">def</span> <span class="nf">isin</span><span class="p">(</span>
