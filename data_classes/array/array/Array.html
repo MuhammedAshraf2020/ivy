@@ -299,8 +299,15 @@
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../functional/ivy.html">
+                      <a class="nav-link nav-internal" href="../../../functional/ivy/activations.html">
                         Functions
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../array.html">
+                        Array
                       </a>
                     </li>
                 
@@ -313,8 +320,8 @@
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../array.html">
-                        Array
+                      <a class="nav-link nav-internal" href="../../../stateful/converters.html">
+                        Converters
                       </a>
                     </li>
                 
@@ -334,15 +341,8 @@
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../stateful/layers.html">
-                        Layers
-                      </a>
-                    </li>
-                
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../stateful/helpers.html">
-                        Helpers
+                      <a class="nav-link nav-internal" href="../../../stateful/optimizers.html">
+                        Optimizers
                       </a>
                     </li>
                 
@@ -355,8 +355,15 @@
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../stateful/converters.html">
-                        Converters
+                      <a class="nav-link nav-internal" href="../../../stateful/initializers.html">
+                        Initializers
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../stateful/layers.html">
+                        Layers
                       </a>
                     </li>
                 
@@ -369,15 +376,8 @@
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../stateful/initializers.html">
-                        Initializers
-                      </a>
-                    </li>
-                
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../stateful/optimizers.html">
-                        Optimizers
+                      <a class="nav-link nav-internal" href="../../../stateful/helpers.html">
+                        Helpers
                       </a>
                     </li>
                 
@@ -392,13 +392,6 @@
                     <li class="nav-item">
                       <a class="nav-link nav-internal" href="../../../utils/backend.html">
                         Backend
-                      </a>
-                    </li>
-                
-
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../utils/_importlib.html">
-                        Importlib
                       </a>
                     </li>
                 
@@ -893,7 +886,7 @@ with minimal changes.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>self</strong> – Input array or float.</p></li>
-<li><p><strong>other</strong> – Array or float power. Must be compatible with <code class="docutils literal notranslate"><span class="pre">self</span></code>
+<li><p><strong>power</strong> – Array or float power. Must be compatible with <code class="docutils literal notranslate"><span class="pre">self</span></code>
 (see <span class="xref std std-ref">broadcasting</span>). Should have a numeric data type.</p></li>
 </ul>
 </dd>
@@ -1257,8 +1250,8 @@ the name function_name and the new args variable or kwargs as the new inputs.</p
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ivy.array.array.Array.clear_mem_on_dev">
-<span class="sig-name descname"><span class="pre">clear_mem_on_dev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ivy.array.array.Array.clear_mem_on_dev" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="ivy.array.array.Array.clear_cached_mem_on_dev">
+<span class="sig-name descname"><span class="pre">clear_cached_mem_on_dev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ivy.array.array.Array.clear_cached_mem_on_dev" title="Permalink to this definition">#</a></dt>
 <dd><p>Add the data of the current array from which the instance function is invoked
 as the first arg parameter or kwarg parameter. Return the new function with
 the name function_name and the new args variable or kwargs as the new inputs.</p>
@@ -2358,7 +2351,7 @@ the name function_name and the new args variable or kwargs as the new inputs.</p
 <div class="line"><br /></div>
 <div class="line"><strong>Supported Frameworks:</strong></div>
 </div>
-<p class=supported_frameworks><a class="reference external logo" href="https://jax.readthedocs.io"><img alt="jax_logo" src="../../../_images/jax_logo.png" /></a> <a class="reference external logo" href="https://www.tensorflow.org"><img alt="tf_logo" src="../../../_images/tensorflow_logo.png" /></a> <a class="reference external logo" href="https://pytorch.org"><img alt="pytorch_logo" src="../../../_images/pytorch_logo.png" /></a> <a class="reference external logo" href="https://numpy.org"><img alt="numpy_logo" src="../../../_images/numpy_logo.png" /></a></p>
+<p class=supported_frameworks><a class="reference external logo" href="https://jax.readthedocs.io"><img alt="jax_logo" class="dark-light" src="../../../_images/jax_logo.png" /></a> <a class="reference external logo" href="https://www.tensorflow.org"><img alt="tf_logo" class="dark-light" src="../../../_images/tensorflow_logo.png" /></a> <a class="reference external logo" href="https://pytorch.org"><img alt="pytorch_logo" class="dark-light" src="../../../_images/pytorch_logo.png" /></a> <a class="reference external logo" href="https://numpy.org"><img alt="numpy_logo" class="dark-light" src="../../../_images/numpy_logo.png" /></a></p>
 
 
             </article>
